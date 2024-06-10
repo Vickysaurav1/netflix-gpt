@@ -3,8 +3,9 @@
 # npx create-react-app netflix-gpt
 # configure tailwind css
 
-# features of the app
 
+
+# features of the app
 - Sing in / sign up
     - Sign in/Sign up form
     - post login takes us to the browse page.
