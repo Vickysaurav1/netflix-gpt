@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidData } from "src/utils/validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const email = useRef(null);
+  const password = useRef(null);
 
   const toggleSignupForm = () => {
     setIsSignInForm(!isSignInForm);
+  };
+  const handleButtonClick = (e) => {
+    //Validate form data
+    const message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
   };
   return (
     <div>
@@ -18,7 +27,12 @@ const Login = () => {
         />
       </div>
 
-      <form className="p-12 bg-black bg-opacity-75 absolute w-1/3 mx-auto my-36 right-0 left-0">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className="p-12 bg-black bg-opacity-75 absolute w-1/3 mx-auto my-36 right-0 left-0"
+      >
         <div className="flex flex-col justify-center text-white">
           <h1 className=" py-2 px-1 m-1 font-bold text-4xl">
             {isSignInForm ? "Sign in" : "Sign Up"}
@@ -31,16 +45,23 @@ const Login = () => {
             />
           )}
           <input
+            ref={email}
             type="text"
             placeholder="Email Address"
             className="p-2 my-4 bg-gray-700 rounded-lg"
           />
           <input
+            ref={password}
             type="password"
             placeholder="Enter your password"
             className="p-2 my-4 bg-gray-700 rounded-lg"
           />
-          <button className="p-2 my-4 bg-red-700 rounded-lg" type="submit">
+          <p className="text-red-600 font-bold text-lg">{errorMessage}</p>
+          <button
+            className="p-2 my-4 bg-red-700 rounded-lg"
+            type="submit"
+            onClick={handleButtonClick}
+          >
             {isSignInForm ? "Sign in" : "Sign Up"}
           </button>
           <span className="self-center">OR</span>

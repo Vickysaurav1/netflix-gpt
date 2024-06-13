@@ -3,7 +3,14 @@
 # npx create-react-app netflix-gpt
 # configure tailwind css
 
-
+- create-react-app
+- configured tailwind
+- header
+- sign in
+- sign up
+- routing
+- form validation
+- useref hook
 
 # features of the app
 - Sing in / sign up
