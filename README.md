@@ -11,6 +11,12 @@
 - routing
 - form validation
 - useref hook
+- authentication
+- firebase setup
+- deploying app to production
+- create signup user account in firebase
+- create signin user account in firebase
+- created appStore and userSlice
 
 # features of the app
 - Sing in / sign up

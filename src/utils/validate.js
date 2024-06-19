@@ -5,4 +5,6 @@ export const checkValidData = (email, password) => {
 
     if(!isEmailVaild) return "Email is invalid";
     if(!isPasswordValidation) return "password is invalid";
+
+    return null;
 }

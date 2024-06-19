@@ -1,13 +1,24 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "src/utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "src/utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "src/utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const email = useRef(null);
   const password = useRef(null);
-
+  const name = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toggleSignupForm = () => {
     setIsSignInForm(!isSignInForm);
   };
@@ -15,13 +26,73 @@ const Login = () => {
     //Validate form data
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
+
+    if (message) return;
+
+    //Sign in / signup logic
+
+    if (!isSignInForm) {
+      //Sign up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, displayName: displayName, email: email })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+              setErrorMessage(error.code + "-" + error.message);
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrorMessage(error.code + "-" + error.message);
+        });
+    } else {
+      //sign in logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrorMessage(error.code + "-" + error.message);
+        });
+    }
   };
   return (
     <div>
       <Header />
-      <div className=" absolute bg-cover">
+      <div className="bg-cover bg-center bg-black md:bg-none absolute">
         <img
-          className="bg-cover"
+          className="h-screen md:bg-cover"
           src="https://assets.nflxext.com/ffe/siteui/vlv3/cacfadb7-c017-4318-85e4-7f46da1cae88/e43aa8b1-ea06-46a5-abe3-df13243e718d/IN-en-20240603-popsignuptwoweeks-perspective_alpha_website_small.jpg"
           alt="bg-img"
         />
@@ -31,7 +102,7 @@ const Login = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="p-12 bg-black bg-opacity-75 absolute w-1/3 mx-auto my-36 right-0 left-0"
+        className="p-12 bg-black bg-opacity-75 absolute w-[90%] md:w-1/3 mx-auto my-36 right-0 left-0"
       >
         <div className="flex flex-col justify-center text-white">
           <h1 className=" py-2 px-1 m-1 font-bold text-4xl">
@@ -39,6 +110,7 @@ const Login = () => {
           </h1>
           {!isSignInForm && (
             <input
+              ref={name}
               type="text"
               placeholder="Full Name"
               className="p-2 my-4 bg-gray-700 rounded-lg"
