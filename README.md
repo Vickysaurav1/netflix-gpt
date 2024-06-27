@@ -26,6 +26,9 @@
     - fetch the data
 - put the movie data in redux store.
 - create movie card component.
+- created custom hook
+- build secondary container
+
 
 
 
