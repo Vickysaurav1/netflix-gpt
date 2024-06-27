@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "src/utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "src/utils/userSlice";
+import { USER_AVATAR } from "src/utils/const";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -17,7 +17,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toggleSignupForm = () => {
     setIsSignInForm(!isSignInForm);
@@ -42,28 +41,32 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://example.com/jane-q-user/profile.jpg",
+            photoURL:  USER_AVATAR ,
           })
             .then(() => {
               // Profile updated!
-              const { uid, email, displayName } = auth.currentUser;
+              const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
-                addUser({ uid: uid, displayName: displayName, email: email })
+                addUser({
+                  uid: uid,
+                  displayName: displayName,
+                  email: email,
+                  photoURL: photoURL,
+                })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
               // ..
-              setErrorMessage(error.code + "-" + error.message);
+              setErrorMessage(errorCode + "-" + errorMessage);
             });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
-          setErrorMessage(error.code + "-" + error.message);
+          setErrorMessage(errorCode + "-" + errorMessage);
         });
     } else {
       //sign in logic
@@ -75,15 +78,13 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
-          setErrorMessage(error.code + "-" + error.message);
+          setErrorMessage(errorCode + "-" + errorMessage);
         });
     }
   };
