@@ -41,7 +41,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:  USER_AVATAR ,
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               // Profile updated!
@@ -93,9 +93,14 @@ const Login = () => {
       <Header />
       <div className="bg-cover bg-center bg-black md:bg-none absolute">
         <img
-          className="h-screen md:bg-cover"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/cacfadb7-c017-4318-85e4-7f46da1cae88/e43aa8b1-ea06-46a5-abe3-df13243e718d/IN-en-20240603-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          className="hidden max-w-screen-2xl md:flex"
+          // src="https://assets.nflxext.com/ffe/siteui/vlv3/cacfadb7-c017-4318-85e4-7f46da1cae88/e43aa8b1-ea06-46a5-abe3-df13243e718d/IN-en-20240603-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src="https://wallpapercave.com/wp/wp1917130.jpg"
           alt="bg-img"
+        />
+        <img
+          className="md:hidden w-screen h-screen"
+          src="https://images.unsplash.com/photo-1635805737707-575885ab0820?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bW92aWUlMjBwb3N0ZXJ8ZW58MHx8MHx8fDA%3D"
         />
       </div>
 
@@ -103,7 +108,7 @@ const Login = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="p-12 bg-black bg-opacity-75 absolute w-[90%] md:w-1/3 mx-auto my-36 right-0 left-0"
+        className="p-5 md:p-10 bg-black bg-opacity-75 absolute w-[90%] md:w-1/3 mx-auto my-36 right-0 left-0"
       >
         <div className="flex flex-col justify-center text-white">
           <h1 className=" py-2 px-1 m-1 font-bold text-4xl">
@@ -138,12 +143,12 @@ const Login = () => {
             {isSignInForm ? "Sign in" : "Sign Up"}
           </button>
           <span className="self-center">OR</span>
-          <button
+          {/* <button
             className="p-2 my-4 bg-gray-600 bg-opacity-80 rounded-lg"
             type="submit"
           >
             Use a sign in code
-          </button>
+          </button> */}
           <button className="p-2 my-1">Forgot password?</button>
           {/* <div className=" p-2 flex gap-2">
             <input checked="checked" className="w-5 h-5" type="chekbox" />{" "}
@@ -155,7 +160,7 @@ const Login = () => {
           onClick={toggleSignupForm}
         >
           {isSignInForm
-            ? `New to netflix? Sign up now.`
+            ? `New to skstyle-GPT? Sign up now.`
             : `Already an user. Sign in now`}
         </p>
       </form>

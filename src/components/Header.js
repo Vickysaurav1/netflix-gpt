@@ -7,12 +7,19 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removerUser } from "src/utils/userSlice";
 import { LOGO, USER_AVATAR } from "src/utils/const";
+import { toggleGptSearchView } from "src/utils/gptSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const [showSignOut, setShowSignOut] = useState(false);
+
+  const handleGptSaerchView = () =>{
+    //Toggle GPT search view
+    dispatch(toggleGptSearchView())
+  }
+
   const handleSignOutButton = () => {
     setShowSignOut(!showSignOut);
   };
@@ -49,16 +56,23 @@ const Header = () => {
   }, []);
   return (
     <div className="absolute text-white flex justify-between w-screen px-8 py-2 bg-gradient-to-b from-black z-50">
-      <img className="w-44" src={LOGO} alt="logo" />
+      <img
+        className="w-44"
+        src={process.env.PUBLIC_URL + "/skstyle.png"}
+        alt="logo"
+      />
       {user && (
-        <div className="flex flex-col p-4">
-          <img
-            onClick={handleSignOutButton}
-            className="w-10 h-10"
-            src={USER_AVATAR}
-            alt="usericon"
-          />
-          {showSignOut && <button onClick={handleSignout}>(SignOut)</button>}
+        <div className="flex justify-center items-center p-2">
+          <button onClick={handleGptSaerchView} className="p-2 m-4 rounded-lg border-dashed border-blue-200 border-2  bg-purple-500">GPTSearch</button>
+          <div className="flex flex-col">
+            <img
+              onClick={handleSignOutButton}
+              className="w-10 h-10"
+              src={USER_AVATAR}
+              alt="usericon"
+            />
+            {showSignOut && <button onClick={handleSignout}>(SignOut)</button>}
+          </div>
         </div>
       )}
     </div>

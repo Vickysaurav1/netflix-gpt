@@ -28,7 +28,11 @@
 - create movie card component.
 - created custom hook
 - build secondary container
-
+- movie list and fetch all the playing movie apis
+- OpenAI api to use for creating a recommendation channel for novies based on users mood.
+- create a custom hook for openai api
+- create a gpt search feature
+- link in header
 
 
 
