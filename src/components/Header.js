@@ -61,9 +61,9 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="absolute text-white flex justify-between w-screen px-8 py-2 bg-gradient-to-b from-black z-50">
+    <div className="absolute text-white flex flex-col md:flex-row justify-between w-screen px-8 py-2 bg-gradient-to-b from-black z-50">
       <img
-        className="w-1/3 md:w-44"
+        className="w-44 mx-auto md:mx-0"
         src={process.env.PUBLIC_URL + "/skstyle.png"}
         alt="logo"
         onClick={handleLogoClick}
