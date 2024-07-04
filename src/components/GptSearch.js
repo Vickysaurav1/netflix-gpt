@@ -5,7 +5,7 @@ import GptMovieSuggestion from "./GptMovieSuggestion";
 const GptSearch = () => {
   return (
     <div>
-      <div className="absolute">
+      <div className="fixed">
         <img
           className="hidden w-screen h-screen md:flex -z-10 "
           src="https://cdn.pixabay.com/photo/2021/11/01/16/17/clay-6760967_1280.jpg"
