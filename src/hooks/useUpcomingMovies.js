@@ -12,7 +12,6 @@ const useUpcomingMovies = () => {
       );
       const results = await data.json();
       dispatch(addUpcomingMovies(results?.results));
-      console.log(results);
   };
   useEffect(()=>{
     upcomingMovies();

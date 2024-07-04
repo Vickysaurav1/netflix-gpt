@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import useNowPlayingMovies from "src/hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
@@ -21,23 +21,12 @@ const Browse = () => {
       <Header />
       {showGptSearchView ? (
         <GptSearch />
-      ) : (
-        <>
-          {" "}
+      ) : (       
+        <div>
           <MainContainer />
           <SecondaryContainer />
-        </>
+        </div>
       )}
-
-      {/*
-      Main Container
-        -Video player
-        -video title
-
-      Secondary container
-        -Movies List * n
-          - cards *n
-       */}
     </div>
   );
 };

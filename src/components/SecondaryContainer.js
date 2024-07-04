@@ -20,7 +20,6 @@ const SecondaryContainer = () => {
   const movies = useSelector((store) => store?.movies);
   if (movies === null) return;
 
-  console.log("secondaryContainerJs", movies);
   return (
     <div className="bg-black text-white">
       <div className="-mt-52 z-10 relative">

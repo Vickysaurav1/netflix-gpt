@@ -21,7 +21,9 @@ const Login = () => {
   const toggleSignupForm = () => {
     setIsSignInForm(!isSignInForm);
   };
+  const [isLoading, setIsLoading] = useState(false)
   const handleButtonClick = (e) => {
+    
     //Validate form data
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
@@ -29,6 +31,7 @@ const Login = () => {
     if (message) return;
 
     //Sign in / signup logic
+    setIsLoading(true);
 
     if (!isSignInForm) {
       //Sign up logic
@@ -139,7 +142,9 @@ const Login = () => {
             className="p-2 my-4 bg-red-700 rounded-lg"
             type="submit"
             onClick={handleButtonClick}
+            disabled={isLoading}
           >
+            {isLoading && <i className="fa fa-refresh fa-spin fa-20px "></i>}
             {isSignInForm ? "Sign in" : "Sign Up"}
           </button>
           <span className="self-center">OR</span>
