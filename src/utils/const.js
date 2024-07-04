@@ -8,12 +8,10 @@ export const API_OPTIONS = {
   headers: {
     accept: "application/json",
     Authorization:
-      "Bearer, " + process.env.REACT_APP_TMDB_KEY,
+      "Bearer "+ process.env.REACT_APP_TMDB_KEY,
   },
 };
 
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
-//sksv
-//export const OPENAI_KEY = "sk-proj-j0oKKzLCtQGZ9YJ6ssmWT3BlbkFJM5fe0lKJtlKgxLFcKvAx"
 //buildw
 export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
